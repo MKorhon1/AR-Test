@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hermann's Finland – AR-malli</title>
+  <title>Hermann's Finland – AR Model</title>
 
-  <!-- Model Viewer -kirjasto -->
+  <!-- Model Viewer -library -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
   <style>
@@ -44,15 +44,7 @@
       margin: 0 auto;
     }
 
-    h2 {
-      margin-top: 15px;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--ep-blue);
-      text-align: center;
-    }
-
-    /* --- AR-PAINIKE --- */
+    /* --- AR BUTTON --- */
     button.ar-launch {
       margin: 15px 0 25px 0;
       padding: 14px 26px;
@@ -66,6 +58,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.18);
       transition: 0.2s;
     }
+
     button.ar-launch:hover {
       background-color: #c57d1d;
       transform: scale(1.03);
@@ -81,13 +74,6 @@
       border: 3px solid var(--hermanns-orange);
       margin-top: 10px;
     }
-
-    /* Pieni helper vanhoille selaimille */
-    noscript {
-      color: #b00020;
-      font-weight: bold;
-      margin-top: 20px;
-    }
   </style>
 </head>
 
@@ -98,39 +84,20 @@
     <img src="HS_logo_valkoiselle.jpg" alt="Hermann's Finland logo">
   </header>
 
-  <h2>3D-malli AR-näkymällä</h2>
+  <!-- AR BUTTON (English) -->
+  <button class="ar-launch" id="arButton">📱 Open AR Model</button>
 
-  <!-- AVAA AR -PAINIKE -->
-  <button class="ar-launch" id="arButton">📱 Avaa AR‑malli</button>
-
-  <!-- 3D-MALLI -->
-  <model-viewer
-      id="mv"
-      src="ITM-040766.glb?v=11"
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      camera-controls
-      auto-rotate>
+  <!-- MODEL VIEWER -->
+  <model-viewer id="mv"
+                src="ITM-040766.glb?v=12"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                camera-controls
+                auto-rotate>
   </model-viewer>
 
-  <noscript>Tämä sivu vaatii JavaScriptin.</noscript>
-
   <script>
-    (function () {
-      const mv = document.getElementById('mv');
-      const btn = document.getElementById('arButton');
+    const mv = document.getElementById('mv');
+    const btn = document.getElementById('arButton');
 
-      // Varmistus: jos model-viewer ei lataudu, näytetään silti nappi lataukselle
-      btn.addEventListener('click', () => {
-        if (mv && typeof mv.activateAR === 'function' && mv.canActivateAR) {
-          mv.activateAR();
-        } else if (mv && mv.src) {
-          // Fallback: lataa malli tiedostona
-          window.location.href = mv.src;
-        }
-      });
-    })();
-  </script>
-
-</body>
-</html>
+    btn.addEventListener('click', () => {
