@@ -2,64 +2,124 @@
 <html lang="fi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hermann's Finland – AR Model</title>
 
-  <!-- Model Viewer -library -->
+  <!-- Model Viewer -kirjasto (oikea script-tagi) -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
   <style>
-    :root {
-      --hermanns-orange: #d98c23;
-      --hermanns-dark: #3a3430;
-      --ep-blue: #00325f;
-      --light-bg: #f5f5f5;
-      --white: #ffffff;
+    :root{
+      --hermanns-orange:#d98c23;
+      --hermanns-dark:#3a3430;
+      --ep-blue:#00325f;
+      --light-bg:#f5f5f5;
+      --white:#ffffff;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--light-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      color: var(--hermanns-dark);
+    /* Yleislook */
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:var(--light-bg);
+      color:var(--hermanns-dark);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:20px;
     }
 
-    /* ---------------------- LOGO CONTAINER ---------------------- */
-    header {
-      width: 100%;
-      max-width: 900px;
-      text-align: center;
-      padding: 20px 0 10px 0;
-      margin-bottom: 25px;
-      border-bottom: 4px solid var(--hermanns-orange);
+    /* Yläosa + logo-kehys */
+    header{
+      width:100%;
+      max-width:900px;
+      text-align:center;
+      padding:20px 0 10px;
+      border-bottom:4px solid var(--hermanns-orange);
+      margin-bottom:25px;
+    }
+    header img{
+      width:360px;
+      max-width:95%;
+      display:block;
+      margin:0 auto;
+
+      /* Oranssi kehys logolle */
+      border:4px solid var(--hermanns-orange);
+      border-radius:14px;
+      padding:6px;
+      background:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
     }
 
-    /* ---------------------- LOGO WITH ORANGE FRAME ---------------------- */
-    header img {
-      width: 360px;
-      max-width: 95%;
-      display: block;
-      margin: 0 auto;
-
-      border: 4px solid var(--hermanns-orange);
-      border-radius: 14px;
-      padding: 6px;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    /* AR-nappi */
+    .ar-launch{
+      margin:15px 0 25px;
+      padding:14px 26px;
+      background:var(--hermanns-orange);
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,.18);
+      transition:.2s;
     }
+    .ar-launch:hover{ background:#c57d1d; transform:scale(1.03); }
 
-    /* ---------------------- AR BUTTON ---------------------- */
-    button.ar-launch {
-      margin: 15px 0 25px 0;
-      padding: 14px 26px;
-      background-color: var(--hermanns-orange);
-      color: var(--white);
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
+    /* 3D-kortti */
+    model-viewer{
+      width:100%;
+      max-width:600px;
+      height:520px;
+      background:var(--white);
+      border-radius:16px;
+      border:3px solid var(--hermanns-orange);
+      box-shadow:0 4px 18px rgba(0,0,0,.18);
+      margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGO (tiedosto samassa kansiossa) -->
+  <header>
+    <img src="HS_logo_valkoiselle.jpg" alt="Hermann's Finland logo">
+  </header>
+
+  <!-- AR-painike -->
+  <button class="ar-launch" id="arButton"> Open AR Model</button>
+
+  <!-- 3D-malli -->
+  <model-viewer id="mv"
+                src="ITM-040766.glb?v=16"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                camera-controls
+                auto-rotate>
+  </model-viewer>
+
+  <script>
+    // Nappi -> avaa AR-tilan, desktopissa lataa mallin
+    const mv  = document.getElementById('mv');
+    const btn = document.getElementById('arButton');
+
+    btn.addEventListener('click', () => {
+      try {
+        // canActivateAR on true, kun AR on käytettävissä laitteella
+        if (mv?.canActivateAR) {
+          mv.activateAR();
+        } else if (mv?.src) {
+          // Desktop/fallback: lataa malli tiedostona
+          window.location.href = mv.src;
+        }
+      } catch (e) {
+        console.error(e);
+        if (mv?.src) window.location.href = mv.src;
+      }
+    });
+  </script>
+
+</body>
+</html>
