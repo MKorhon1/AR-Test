@@ -9,7 +9,6 @@
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
   <style>
-    /* ---------- VÄRIT (Hermann's & EP) ---------- */
     :root {
       --hermanns-orange: #d98c23;
       --hermanns-dark: #3a3430;
@@ -18,7 +17,6 @@
       --white: #ffffff;
     }
 
-    /* ---------- YLEISASSETTELU ---------- */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -30,7 +28,6 @@
       color: var(--hermanns-dark);
     }
 
-    /* ---------- HEADER + LOGO ---------- */
     header {
       width: 100%;
       max-width: 900px;
@@ -47,7 +44,6 @@
       margin: 0 auto;
     }
 
-    /* ---------- OTSIKKO ---------- */
     h2 {
       margin-top: 15px;
       font-size: 26px;
@@ -56,37 +52,27 @@
       text-align: center;
     }
 
-    /* ---------- 3D MALLI ---------- */
+    /* ---- AR-PAINIKE ---- */
+    .ar-button {
+      display: inline-block;
+      margin: 10px 0 25px 0;
+      padding: 14px 26px;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--white);
+      background-color: var(--hermanns-orange);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+      transition: 0.2s;
+      text-decoration: none;
+    }
+
+    .ar-button:hover {
+      background-color: #c57d1d;
+      transform: scale(1.03);
+    }
+
     model-viewer {
       width: 100%;
-      max-width: 600px;
-      height: 520px;
-      background-color: var(--white);
-      border-radius: 16px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
-      border: 3px solid var(--hermanns-orange);
-      margin-top: 10px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- ---------- LOGO ---------- -->
-  <header>
-    <img src="HS_logo_valkoiselle.jpg" alt="Hermann's Finland logo">
-  </header>
-
-  <!-- ---------- OTSIKKO ---------- -->
-  <h2>3D-malli AR-näkymällä</h2>
-
-  <!-- ---------- 3D-MALLI ---------- -->
-  <model-viewer src="ITM-040766.glb"
-                ar
-                ar-modes="webxr scene-viewer quick-look"
-                camera-controls
-                auto-rotate>
-  </model-viewer>
-
-</body>
-</html>
