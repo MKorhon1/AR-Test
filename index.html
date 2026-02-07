@@ -52,27 +52,67 @@
       text-align: center;
     }
 
-    /* ---- AR-PAINIKE ---- */
-    .ar-button {
-      display: inline-block;
-      margin: 10px 0 25px 0;
+    /* --- AR PAINIKE --- */
+    button.ar-launch {
+      margin: 15px 0 25px 0;
       padding: 14px 26px;
-      font-size: 18px;
-      font-weight: bold;
-      color: var(--white);
       background-color: var(--hermanns-orange);
+      color: var(--white);
       border: none;
       border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.18);
       transition: 0.2s;
-      text-decoration: none;
     }
 
-    .ar-button:hover {
+    button.ar-launch:hover {
       background-color: #c57d1d;
       transform: scale(1.03);
     }
 
     model-viewer {
       width: 100%;
+      max-width: 600px;
+      height: 520px;
+      background-color: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+      border: 3px solid var(--hermanns-orange);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="HS_logo_valkoiselle.jpg" alt="Hermann's Finland logo">
+  </header>
+
+  <h2>3D-malli AR-näkymällä</h2>
+
+  <!-- --- AR-MALLIN AVAUSNAPPULa --- -->
+  <button class="ar-launch" id="arButton">📱 Avaa AR-malli</button>
+
+  <!-- --- 3D-MALLI --- -->
+  <model-viewer id="mv"
+                src="ITM-040766.glb"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                camera-controls
+                auto-rotate>
+  </model-viewer>
+
+  <script>
+    const arButton = document.getElementById("arButton");
+    const mv = document.getElementById("mv");
+
+    arButton.addEventListener("click", () => {
+      mv.activateAR();
+    });
+  </script>
+
+</body>
+</html>
